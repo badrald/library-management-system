@@ -62,10 +62,7 @@ def profile_edit(request):
             myprofile.user=request.user
             myprofile.save()
             return redirect('accounts:profile')
-    else:
-        formProfile = EditProfileForm(instance=profile)
-        formUser=EditUserForm(instance=profile.user)
-        return render(request,"accounts/profile_edit.html",{'form1':formUser,'form2':formProfile,'pic':profile.image,'title':'Edit Profile'})
+    return render(request,"accounts/profile_edit.html",{"profile":profile})
 
 
     

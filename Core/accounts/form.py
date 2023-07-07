@@ -16,7 +16,7 @@ class EditProfileForm(forms.ModelForm):
     class Meta:
         model= Profile
         fields = '__all__'
-        exclude= ('user',)
+        exclude= ('user','borrowedBooks','boughtBooks')
 
 class EditUserForm(forms.ModelForm):
     class Meta:

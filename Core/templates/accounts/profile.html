@@ -39,18 +39,18 @@
         </div>
       </div>
       {% endif %}
-
+      {% if request.user == profile.user %}
       <div class="space-x-8 flex justify-between mt-32 md:mt-0 md:justify-center">
-        <a href="*"
+        <a href="{% url 'accounts:profile_edit' %}"
           class="text-white py-2 px-4 uppercase rounded bg-sky-400 hover:bg-sky-500 shadow hover:shadow-lg font-medium transition transform hover:-translate-y-0.5">
           تعديل بيانات الحساب
       </a>
       </div>
+      {% endif %}
       </div>
       <div class="mt-20 text-center border-b pb-12">
-        <h1 class="text-4xl font-medium text-gray-700">{{profile}} <span class="font-light text-gray-500">27</span>
-        </h1>
-        <p class="font-light text-gray-600 mt-3">{{profile.address}}</p>
+        <h1 class="text-4xl font-medium text-gray-700">@{{profile.user.username}}</h1>
+        <p class="font-light text-gray-600 mt-3">{{profile}}</p>
       </div>
   
   <div class="mt-12 flex flex-col justify-center">
@@ -65,6 +65,14 @@
     <div class="mb-4">
       <label class="text-gray-600">البريد الالكتروني</label>
       <p id="email" class="form-control-static">{{profile.user.email}}</p>
+    </div>
+    <div class="mb-4">
+      <label class="text-gray-600">رقم الهاتف</label>
+      <p id="phone_number" class="form-control-static">{{profile.phone_number}}</p>
+    </div>
+    <div class="mb-4">
+      <label class="text-gray-600">العنوان</label>
+      <p id="address" class="form-control-static">{{profile.address}}</p>
     </div>
     <div class="mb-4">
       <label class="text-gray-600">الحالة</label>
