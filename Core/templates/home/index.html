@@ -1,0 +1,36 @@
+{% extends 'home/base.html' %}
+{% block content %}
+<div class="container mx-auto px-4">
+  <div class="mt-8">
+    <h1 class="text-3xl font-semibold">مرحبًا بكم في مكتبتنا!</h1>
+    <p class="mt-2">استكشف مجموعتنا الواسعة من الكتب.</p>
+  </div>
+
+  <!-- Book Section -->
+
+  <div class="mt-8">
+  <h2 class="text-2xl font-semibold">الكتب الجديدة</h2>
+  </div>
+  
+    
+    <div class="mt-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        {% for book  in newBooks  %}
+      <a href="{% url 'bookDetails' book.id %}"> 
+        <div class="col-lg-4 col-md-6 mb-4">
+         <div class="card h-100">
+           <img class="card-img-top" src="{{book.photo_book.url}}" alt="Book 1">
+            <div class="card-body">
+              <h5 class="card-title">{{book.title}}</h5>
+             <p class="card-text">{{book.author}} </p>
+            </div>
+          </div>
+        </div>
+      </a>
+        {% endfor %}
+      </div>
+    </div>
+   
+</div>
+ 
+  {% endblock  %}

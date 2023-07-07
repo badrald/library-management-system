@@ -1,0 +1,52 @@
+{% extends 'accounts/base.html' %}
+{% block Title %} إنشاء حساب {% endblock Title %} 
+{% block content %}
+<style>
+    .box-form .left {
+      background-image: url("/static/imeges/lib2.jpg");
+    }
+    
+   </style>
+<form method="post" >
+       {% csrf_token %}
+    <div class="box-form">
+	<div class="left">
+		<div class="overlay">
+		<h1>إنشاء حساب جديد</h1>
+		<p>اهلا بكم في مكتبتكم المكتبة العالمية</p>
+		</div>
+	</div>
+	
+	
+		<div class="right">
+		<h5>
+             إنشاء حساب 
+
+        </h5>
+		<p>هل لديك حساب بالفعل ؟ <a href="#">تسجيل الدخول</a> </p>
+		<div class="inputs">
+            <input type="text" name="first_name" placeholder="ألإسم الاول ">
+			<input type="text" name="last_name" placeholder="الإسم الاخير">
+			<input type="text" name="username" placeholder="أسم المستخدم">
+			<input type="email" name="email" placeholder="البريد الإلكتروني">
+            <br>
+			<input type="password" name="password1" placeholder="كلمة المرور">
+			<input type="password" name="password2" placeholder="تأكيد كلمة المرور">
+		</div>
+			
+			<br><br>
+			
+		<div class="remember-me--forget-password">
+	<label>
+		<input type="checkbox" name="item" checked/>
+		<span class="text-checkbox">تذكرني</span>
+	</label>
+		</div>
+			
+			<br>
+            <button type="submit" >إنشاء</button>	</div>
+	
+</div>
+</form>
+
+{% endblock  %}

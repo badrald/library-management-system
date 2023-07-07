@@ -1,0 +1,68 @@
+{% extends 'accounts/base.html' %}
+{% block Title %}تسجيل الدخول {% endblock Title %} 
+
+{% block content %}
+  {% if form.errors %}
+    <p>كلمة المرور او اسم المستخدم المستخدم لا يتتابقان ارجو اعادة الادخال</p>
+  {% endif %}
+
+  {% if next %}
+    {% if user.is_authenticated %}
+      <p>هذا الحساب ليس لديه حق الوصول لهذه الصفحة ارجاء ادخال الحساب ذو صلاحيات لدخول الى هذه الصفحة</p>
+    {% else %}
+      <p>ارجو تسجيل الدخول لدخول إلى هذه الصفحة</p>
+    {% endif %}
+  {% endif %}
+ <style>
+  .box-form .left {
+    background-image: url("/static/imeges/lib1.jpg");
+  }
+  
+ </style>
+  <form method="post" action="{% url 'accounts:login' %}">
+    {% csrf_token %}
+    <div class="box-form">
+      <div class="left">
+        <div class="overlay">
+        <h1>أهلا بعودتك </h1>
+        <p>اهلا بكم في مكتبتكم المكتبة العالمية</p>
+        </div>
+      </div>
+      
+      
+        <div class="right">
+        <h5>تسجيل الدخول</h5>
+        <p>ليس لديك حساب ؟  <a href="#">التسجيل</a> لن يستغرق الامر اكثر من دقيقة</p>
+        <div class="inputs">
+          <input type="text" name="username" placeholder="أسم المستخدم">
+          <br>
+          <input type="password" name="password" placeholder="كلمة المرور">
+        </div>
+          
+          <br><br>
+          
+          <div class="remember-me--forget-password">
+            <!-- Angular -->
+      <label>
+        <input type="checkbox" name="item" checked/>
+        <span class="text-checkbox">تذكرني</span>
+      </label>
+          <p>نسيت كلمة المرور</p>
+        </div>
+          
+          <br>
+          <button type="submit" >ادخل</button>
+      </div>
+      
+    </div>
+
+   
+    <input type="hidden" name="next" value="{{ next }}">
+  </form>
+
+  {# Assumes you setup the password_reset view in your URLconf #}
+  
+  <p><a href="{% url 'accounts:signup' %}">SignUp</a></p>
+  
+
+{% endblock %}

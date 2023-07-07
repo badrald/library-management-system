@@ -1,0 +1,20 @@
+{% extends 'home/base.html' %}
+
+{% block content %} 
+  <!-- Page Content -->
+  <div class="container mx-auto px-4 mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <img class="book-img" src="{{book.photo_book.url}}" alt="Book Image">
+      </div>
+      <div>
+        <h1 class="book-title">تفاصيل الكتاب</h1>
+        <p class="book-description">كتاب يتحدث عن بعض أسماء الله الحسنى وكيف نعيشها في حياتنا حرص المؤلف أن يكون الكتاب مناسباً لمن هم متوسطي الثقافة، ويكون ناسباً للمحتاج و المريض و السليم
+
+            هذا الكتاب من تأليف علي جابر الفيفي و حقوق الكتاب محفوظة لصاحبها</p>
+        <p class="book-price">السعر:  ${{book.price}}</p>
+        <button class="px-6 py-2 mt-4 text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700">إضافة إلى السلة</button>
+      </div>
+    </div>
+  </div>
+{% endblock content %}

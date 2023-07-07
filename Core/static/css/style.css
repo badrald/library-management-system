@@ -1,0 +1,46 @@
+  /* Custom styles */
+  body {
+    padding-top: 60px;
+  }
+
+  #navbar {
+    opacity: 1;
+    transition: opacity 0.3s ease;
+  }
+  #navbar.hidden {
+    opacity: 0;
+  }
+  
+  #navbar {
+    transform: translateY(0);
+    transition: transform 0.3s ease;
+  }
+  #navbar.hidden {
+    transform: translateY(-100%);
+  }
+  
+  .card {
+    transition: transform 0.3s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+  }
+
+  .card-img-top {
+    height: 300px;
+    object-fit: cover;
+  }
+
+  .card-title {
+    font-weight: bold;
+  }
+
+  .card-text {
+    height: 60px;
+    overflow: hidden;
+  }
+
+  .footer {
+    background-color: #f8f9fa;
+  }
