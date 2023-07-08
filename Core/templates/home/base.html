@@ -36,12 +36,8 @@
         </div>
       </form>
       {% if user.is_superuser or user.is_staff  %}
-          <a href="{% url 'accounts:profile' %}" ><div>
-            <img src="{{profile.user_photo.url}}"
-             {% comment %} class="w-48 h-48 bg-indigo-100 mx-auto rounded-full shadow-2xl absolute inset-x-0 top-0 -mt-24 flex items-center justify-center text-indigo-500" {% endcomment %}
-            class="px-6 py-2 w-10 h-10 mr-2 bg-indigo-100 mx-auto inset-x-0 top-0  flex items-center justify-center text-indigo-500  rounded-full  hidden lg:inline-block">
-          </div></a>
-        {% comment %} <a class="px-6 py-2 mr-2 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden lg:inline-block" href="{% url 'accounts:profile' %}">Profile</a> {% endcomment %}
+        
+        <a class="px-6 py-2 mr-2 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden lg:inline-block" href="{% url 'accounts:profile' %}">Profile</a> 
         <a class=" px-6 py-2 mr-2 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700 hidden lg:inline-block" href="{% url "mangment" %}">صفحة الادارة</a>
         <a class="px-6 py-2 mr-2 text-lg font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900 hidden lg:inline-block" href="{% url 'accounts:logout' %}">تسجيل الخروج </a>
 

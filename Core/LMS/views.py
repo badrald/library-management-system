@@ -1,9 +1,20 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Sum
+from django.contrib.auth.decorators import user_passes_test
+from django.contrib.auth.models import User
+from accounts.models import Profile
 from .models import *
 from .forms import *
 
+#for the decretor to give access only for the owner 
+def superuser_required(view_func):
+    decorated_view_func = user_passes_test(
+        lambda u: u.is_superuser,
+        login_url='/login/',
+        redirect_field_name=None
+    )(view_func)
+    return decorated_view_func
 # Create your views here.
 @staff_member_required
 def Index(request):
@@ -59,6 +70,8 @@ def update(request,id):
         'bookform': book_save,
         }
     return render(request,"LMS/Pages/update.html",context)
+
+
 @staff_member_required
 def delete(request,id):
     book_del=get_object_or_404(Book,id=id)
@@ -66,3 +79,27 @@ def delete(request,id):
         book_del.delete()
         return redirect('/mangement')
     return render(request,'LMS/Pages/delete.html')
+
+
+
+
+
+@superuser_required
+def profiles(request):
+    profiles  = Profile.objects.all().order_by('-id');
+    return render(request,"LMS/pages/profiles.html",{'Profiles':profiles})
+
+@superuser_required
+def delete_user(request, id ):
+    user_del=get_object_or_404(User,id=id)
+    if request.method == 'POST':
+        user_del.delete()
+        return redirect('/profiles')
+    return render(request,'LMS/Pages/delete_user.html')
+
+@superuser_required
+def givePermision(request , id):
+        user= get_object_or_404(User,id=id)
+        user.is_staff = True
+        user.save()
+        return redirect(request.path)

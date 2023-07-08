@@ -1,0 +1,83 @@
+{% extends 'LMS/base.html' %}
+{% load static %}
+{% block content %}
+<div style="direction: rtl;" class="wrapper">
+      <!-- Content Wrapper. Contains page content -->
+      <div   class="content-wrapper p-5">
+        <!-- Content Header (Page header) -->
+
+                <div class="row mb-2">
+                  <div class="col-sm-6">
+                    <h1>الكتب</h1>
+                  </div>
+   
+                </div>
+            </section>
+        
+            <!-- Main content -->
+            <section class="content">                  
+              <!-- Default box -->
+              <div class="card card-solid">
+                <div class="card-body pb-0">
+                  <div class="row d-flex align-items-stretch">
+                    <!-- بداية الكتاب -->
+                    {% for profile in Profiles %}
+                    <div   class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch ">
+                      <div id="" class="card bg-light">
+                        <div  class="card-header text-muted border-bottom-0">
+                               {% if profile.user.is_superuser %}صاحب المكتبة
+                              {% elif profile.user.is_staff  %} يعمل في المكتبة
+                              {%else%} عضو في المكتبة  
+                              {% endif %}                  
+                              </div>
+                        <div class="card-body pt-0">
+                          <div class="row">
+                            <div class="col-7">
+                              <h2 class="lead"><b>{{profile.user.username}}</b></h2>
+                              <ul class="  fa-ul text-muted">
+                                <li class="small text-dark"><span class="fa-li"></span>الاسم بالكامل:{{profile}}</li>
+                                <li class="small text-dark"><span class="fa-li"></span>عدد الكتب المشترى:{{profile.boughtBooks}}</li>
+                                <li class="small text-dark"><span class="fa-li"></span>عدد الكتب المستعارة:{{profile.borrowedBooks}}</li>
+                                <li class="small text-dark"><span class="fa-li"></span>العنوان:{{profile.address}}</li>
+                                <li class="small text-dark"><span class="fa-li"></span>رقم الهاتف:{{profile.phone_number}}</li>
+                              </ul>
+                            </div>
+                            <div class="col-5 text-center">
+                            {% if profile.user_photo %}
+                                <img style="height: 120px; width: 120px;"  src="{{profile.user_photo.url}}" alt="" class="img-circle img-fluid">
+                            {% else %}
+                               <img style="height: 120px; width: 120px;"  src="{% static 'dist/img/photo1.png' %}" alt="" class="img-circle img-fluid">
+                            {% endif %}
+                              </div>
+                          </div>
+                        </div>
+                        <div class="card-footer">
+                          <div class="text-right">
+                            <a href="{% url 'delete_user' profile.user.id %}" class="btn btn-sm bg-danger">
+                              <i class="fas fa-trash"></i>
+                            </a>
+                            <a href="#" class="btn btn-sm btn-primary">
+                              <i class="fas fa-book"></i> تعديل
+                            </a>
+                          </div>
+                        </div>
+                      </div>
+                      
+                    </div>
+                    {% endfor %}
+                     <!-- نهاية الكتاب -->
+
+                  </div>
+                </div>
+                <!-- /.card-body -->
+  
+                <!-- /.card-footer -->
+              </div>
+              <!-- /.card -->
+        
+            </section>
+            <!-- /.content -->
+          </div>
+          <!-- /.content-wrapper -->
+
+{% endblock %}
