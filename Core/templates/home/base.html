@@ -11,48 +11,70 @@
         <link rel="stylesheet" href=" https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
         <script src="{% static 'js/tailwind.js' %}"></script>
-        <script src"{% static 'js/script.js' %}"></script>
+
+      
+        
         <title>المكتبة العالمية</title>
       </head>
   
 <body dir="rtl" class="hold-transition sidebar-mini">
 <!-- Navigation Bar -->
-<nav id="navbar" class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+<nav class="bg-white dark:bg-gray-900 fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
   <!-- Navbar content -->
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
-  <a href="{% url 'index' %}" class="flex items-center">
+    <a href="{% url 'index' %}" class="flex items-center">
       <img src="{% static 'imeges/logo.png' %}" class="h-8 ml-3" alt="">
-      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white" >المكتبة العالمية</span>
-  </a>
-  <div class="flex md:order-2">
-      <form class="mr-4">
+      <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">المكتبة العالمية</span>
+    </a>
+    <div class="flex md:order-1">
+      <form class="hidden lg:mr-4" method="get">
         <div class="relative">
           <input
-            class="border-2 border-transparent bg-gray-800 text-gray-100 rounded-full focus:outline-none focus:border-teal-500 pl-10 pr-4 py-2"
-            type="search" placeholder="بحث" action="">
-            <div class="absolute top-0 left-0 mt-2 ml-3">
-                <i class="fas fa-search text-gray-500"></i>
-              </div>             
+            class="border-2 border-transparent bg-gray-800 text-gray-100 rounded-full focus:outline-none focus:border-teal-500 pl-10 pr-4 py-2  "
+            type="search" name="search" placeholder="بحث" action="">
+          <div class="absolute top-0 left-0 mt-2 ml-3">
+            <i class="fas fa-search text-gray-500"></i>
+          </div>
         </div>
       </form>
-      {% if user.is_superuser or user.is_staff  %}
-        
-        <a class="px-6 py-2 mr-2 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden lg:inline-block" href="{% url 'accounts:profile' %}">Profile</a> 
-        <a class=" px-6 py-2 mr-2 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700 hidden lg:inline-block" href="{% url "mangment" %}">صفحة الادارة</a>
-        <a class="px-6 py-2 mr-2 text-lg font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900 hidden lg:inline-block" href="{% url 'accounts:logout' %}">تسجيل الخروج </a>
-
-      {% elif user.is_authenticated  %}
-        <a class="px-6 py-2 mr-2 text-lg font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900 hidden lg:inline-block" href="{% url 'accounts:logout' %}">تسجيل الخروج </a>
-      {% else %}
-        <a class=" px-6 py-2 mr-2 text-lg font-newtimesRoman bg-teal-500 text-white rounded-xl hover:bg-teal-700 hidden lg:inline-block" href="{% url "accounts:login" %}">تسجيل الدخول</a>
-        <a class="px-6 py-2 mr-2 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden lg:inline-block" href="{% url 'accounts:signup' %}">التسجيل</a>     
-      {% endif %}
-      <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
-        <span class="sr-only">Open main menu</span>
-        <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd"></path></svg>
-      </button>
-  </div>
-  <div class="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="navbar-sticky">
+      <input type="checkbox" id="menu-toggle-mobile" class="hidden">
+      <label for="menu-toggle-mobile"
+        class="fixed top-0 right-0 mt-5 mr-48 text-white absolute cursor-pointer sm:hidden">
+        <i class="fas fa-bars text-2xl"></i>
+      </label>
+      <div class="hidden sm:hidden" id="mobile-menu">
+        <a href="{% url 'index' %}"
+          class="block py-2 px-4 text-lg font-semibold text-slate-50 hover:text-slate-500">الصفحة الرئيسية</a>
+        <a href="{% url 'books' %}"
+          class="block py-2 px-4 text-lg font-semibold text-slate-50 hover:text-slate-500">الكتب</a>
+        <a href="#" class="block py-2 px-4 text-lg font-semibold text-slate-50 hover:text-slate-500">إتصل بنا</a>
+        {% if user.is_superuser or user.is_staff %}
+        <a href="{% url 'accounts:profile' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900">حساب
+          الشخصي</a>
+        <a href="{% url 'mangment' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-blue-700 text-white rounded-xl hover:bg-blue-900">صفحة
+          الادارة</a>
+        <a href="{% url 'accounts:logout' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900">تسجيل
+          الخروج</a>
+        {% elif user.is_authenticated %}
+        <a href="{% url 'accounts:profile' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900">حساب
+          الشخصي</a>
+        <a href="{% url 'accounts:logout' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900">تسجيل
+          الخروج</a>
+        {% else %}
+        <a href="{% url 'accounts:signup' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900">تسجيل</a>
+        <a href="{% url 'accounts:login' %}"
+          class="block py-2 px-4 text-lg mt-3 font-semibold bg-teal-700 text-white rounded-xl hover:bg-teal-900">تسجيل
+          الدخول</a>
+        {% endif %}
+      </div>
+    </div>
+   <div class="items-center justify-between hidden w-full md:flex md:w-auto " ">
     <ul class="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
       <li>
         <a href="{% url 'index' %}" class="block py-2 pl-3 mr-5 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700" >الصفحة الرئيسية</a>
@@ -64,49 +86,71 @@
         <a href="#" class="block py-2 pl-3 mr-2 pr-4 text-gray-900 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 md:p-0 md:dark:hover:text-blue-500 dark:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">إتصل بنا</a>
       </li>
     </ul>
+    
   </div>
+      {% if user.is_superuser or user.is_staff  %}
+        <a class="px-6 py-2 mr-1 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden md:inline-block  lg:inline-block" href="{% url 'accounts:profile' %}">الحساب الشخصي</a> 
+        <a class=" px-6 py-2 mr-1 text-lg font-semibold bg-blue-500 text-white rounded-xl hover:bg-blue-700 hidden md:inline-block lg:inline-block" href="{% url "mangment" %}">صفحة الادارة</a>
+        <a class="px-6 py-2 mr-1 text-lg font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900 hidden md:inline-block  lg:inline-block" href="{% url 'accounts:logout' %}">تسجيل الخروج </a>
+      {% elif user.is_authenticated  %}
+        <a class="px-6 py-2 mr-1 text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden md:inline-block lg:inline-block" href="{% url 'accounts:profile' %}">الحساب الشخصي</a>
+        <a class="px-6 py-2 mr-1 text-lg font-semibold bg-rose-700 text-white rounded-xl hover:bg-rose-900 hidden  md:inline-block lg:inline-block" href="{% url 'accounts:logout' %}">تسجيل الخروج </a>
+      {% else %}
+        <a class=" px-6 py-2  text-lg font-semibold bg-teal-500 text-white rounded-xl hover:bg-teal-700 hidden md:inline-block   lg:inline-block" href="{% url "accounts:login" %}">تسجيل الدخول</a>
+        <a class="px-6 py-2  text-lg font-semibold bg-amber-700 text-white rounded-xl hover:bg-amber-900 hidden  md:inline-block  lg:inline-block" href="{% url 'accounts:signup' %}">التسجيل</a>     
+      {% endif %}
+ 
   </div>
-</nav>
-
+</nav>  
 
 {% block content %}
 {% endblock %}
  <!-- Footer -->
- <footer id='footer' class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
+ <footer id='footer' class="fixed bottom-0 left-0 z-20 w-full p-4 bg-white border-t border-gray-200 shadow hidden md:flex md:items-center md:justify-between md:p-6 dark:bg-gray-800 dark:border-gray-600">
     <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400">كل الحقوق محفوظة © 2023 
     </span>
     <span class="text-sm text-gray-500 sm:text-center dark:text-gray-400"> تم التطوير بواسطة <a href="https://www.facebook.com/badr.alden.374/" class="hover:underline">بدر الدين</a> & <a href="https://www.facebook.com/profile.php?id=100004292080672" class="hover:underline">تاج الدين</a></span>
-    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
+    <ul class="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 ">
         <li>
             <a href="#" class="mr-4 hover:underline md:mr-6">حول </a>
         </li>
         <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">الضوابط القوانين</a>
+            <a href="#" class="mr-4  hover:underline md:mr-6 ">الضوابط القوانين</a>
         </li>
         <li>
-            <a href="#" class="mr-4 hover:underline md:mr-6">الترخيص </a>
+            <a href="#" class="mr-4  hover:underline md:mr-6">الترخيص </a>
         </li>
         <li>
-            <a href="#" class="mr-4 hover:underline">تواصل معنا </a>
+            <a href="#" class="mr-4  hover:underline sm:hidden">تواصل معنا </a>
         </li>
     </ul>
 </footer>
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script>
-  var prevScrollPos = window.scrollY;
-  window.onscroll = function() {
-    var currentScrollPos = window.scrollY;
-    if (prevScrollPos > currentScrollPos) {
-      document.getElementById("navbar").classList.remove("hidden");
-    } else {
-      document.getElementById("navbar").classList.add("hidden");
-    }
-    prevScrollPos = currentScrollPos;
-  };
+  $(document).ready(function () {
+    // Toggle mobile menu
+    $('#menu-toggle-mobile').change(function () {
+      var mobileMenu = $('#mobile-menu');
+      if ($(this).is(':checked')) {
+        mobileMenu.removeClass('hidden');
+      } else {
+        mobileMenu.addClass('hidden');
+      }
+    });
 
-
-
-
-
+    // Close mobile menu on outside click
+    $(document).click(function (e) {
+      var target = $(e.target);
+      var mobileMenu = $('#mobile-menu');
+      var menuToggle = $('#menu-toggle-mobile');
+      if (!target.is(mobileMenu) && !target.is(menuToggle) && mobileMenu.has(e.target).length === 0) {
+        mobileMenu.addClass('hidden');
+        menuToggle.prop('checked', false);
+      }
+    });
+  });
 </script>
+
 </body>
 </html>

@@ -7,9 +7,9 @@
     <!-- Content Wrapper. Contains page content -->
     <div   class="content-wrapper">
       <!-- Content Header (Page header) -->
-  <div  class="card card-danger">
+  <div  class="card card-success">
       <div class="card-header">
-        <h3 class="card-title">حذف المستخدم</h3>
+        <h3 class="card-title">ترقية حساب الى مسوؤل في المكتبة</h3>
       </div>
       <!-- /.card-header -->
       <!-- form start -->
@@ -17,13 +17,13 @@
       {% csrf_token %}
         <div class="row">
           
-       <p class="p-3">هل تريد حقاً حذف هذا المستخدم ؟ </p>
+       <p class="p-3">هل تريد حقاً ترقية هذا المستخدم ؟ </p>
    
         </div>
         <!-- /.card-body -->
   
         <div class="card-footer">
-          <button type="submit" class="btn btn-danger">حذف</button>
+          <button type="submit" class="btn btn-success">ترقية</button>
   
           <a href="{% url 'profiles' %}" type="submit" class="btn btn-primary">تراجع</a>
         </div>

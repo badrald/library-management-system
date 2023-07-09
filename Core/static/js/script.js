@@ -1,23 +1,22 @@
-var prevScrollPos = window.scrollY;
-window.onscroll = function() {
-  var currentScrollPos = window.scrollY;
-  if (prevScrollPos > currentScrollPos) {
-    document.getElementById("navbar").style.top = "0";
-  } else {
-    document.getElementById("navbar").style.top = "100px";
-    document.getElementById("navbar").style.color = "red";
-  }
-  prevScrollPos = currentScrollPos;
-};
+$(document).ready(function () {
+  // Toggle mobile menu
+  $('#menu-toggle-mobile').change(function () {
+    var mobileMenu = $('#mobile-menu');
+    if ($(this).is(':checked')) {
+      mobileMenu.removeClass('hidden');
+    } else {
+      mobileMenu.addClass('hidden');
+    }
+  });
 
-window.onscroll = function() {
-  var footer = document.getElementById("footer");
-  var scrollPosition = window.innerHeight + window.pageYOffset;
-  var bodyHeight = document.body.offsetHeight;
-
-  if (scrollPosition >= bodyHeight) {
-    footer.style.display = "block";
-  } else {
-    footer.style.display = "none";
-  }
-};
+  // Close mobile menu on outside click
+  $(document).click(function (e) {
+    var target = $(e.target);
+    var mobileMenu = $('#mobile-menu');
+    var menuToggle = $('#menu-toggle-mobile');
+    if (!target.is(mobileMenu) && !target.is(menuToggle) && mobileMenu.has(e.target).length === 0) {
+      mobileMenu.addClass('hidden');
+      menuToggle.prop('checked', false);
+    }
+  });
+});

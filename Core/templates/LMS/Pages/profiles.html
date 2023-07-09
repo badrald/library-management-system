@@ -8,7 +8,7 @@
 
                 <div class="row mb-2">
                   <div class="col-sm-6">
-                    <h1>الكتب</h1>
+                    <h1>المستخدمين</h1>
                   </div>
    
                 </div>
@@ -20,7 +20,7 @@
               <div class="card card-solid">
                 <div class="card-body pb-0">
                   <div class="row d-flex align-items-stretch">
-                    <!-- بداية الكتاب -->
+                    <!-- بداية المستخدمين -->
                     {% for profile in Profiles %}
                     <div   class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch ">
                       <div id="" class="card bg-light">
@@ -56,9 +56,15 @@
                             <a href="{% url 'delete_user' profile.user.id %}" class="btn btn-sm bg-danger">
                               <i class="fas fa-trash"></i>
                             </a>
-                            <a href="#" class="btn btn-sm btn-primary">
-                              <i class="fas fa-book"></i> تعديل
+                            {% if not  profile.user.is_staff %}
+                              <a href="{% url 'givePermission' profile.user.id %}" class="btn btn-sm btn-success">
+                              <i class="fas fa-user"></i> ترقية
                             </a>
+                            {% else %}
+                              <a href="{% url 'takePermission' profile.user.id %}" class="btn btn-sm btn-warning">
+                              <i class="fas fa-user"></i> نزع الصلاحيات
+                            </a>
+                            {% endif %}
                           </div>
                         </div>
                       </div>
