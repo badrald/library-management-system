@@ -23,8 +23,11 @@
              إنشاء حساب 
 
         </h5>
-		<p>هل لديك حساب بالفعل ؟ <a href="#">تسجيل الدخول</a> </p>
+		<p>هل لديك حساب بالفعل ؟ <a href="{% url 'accounts:login' %}">تسجيل الدخول</a> </p>
 		<div class="inputs">
+			{% for i in error  %}
+			<p style="color:red;">{{i.message}}</p>
+			{% endfor %}
             <input type="text" name="first_name" placeholder="ألإسم الاول ">
 			<input type="text" name="last_name" placeholder="الإسم الاخير">
 			<input type="text" name="username" placeholder="أسم المستخدم">

@@ -94,15 +94,16 @@ def delete_user(request, id ):
     user_del=get_object_or_404(User,id=id)
     if request.method == 'POST':
         user_del.delete()
-        return redirect('/profiles')
+        return redirect('LMS:profiles')
     return render(request,'LMS/Pages/delete_user.html')
 
 @superuser_required
 def givePermission(request , id):
     user_perm=get_object_or_404(User,id=id)
     if request.method == 'POST':
-        user_perm.is_staff=True
-        return redirect('/profiles')
+        user_perm.is_staff = True
+        user_perm.save()
+        return redirect('profiles')
     return render(request,'LMS/Pages/upgradeProfile.html')
 
 
@@ -110,6 +111,7 @@ def givePermission(request , id):
 def takePermission(request , id):
     user_perm=get_object_or_404(User,id=id)
     if request.method == 'POST':
-        user_perm.is_staff=False
-        return redirect('/profiles')
+        user_perm.is_staff = False
+        user_perm.save()
+        return redirect('profiles')
     return render(request,'LMS/Pages/takePermission.html')

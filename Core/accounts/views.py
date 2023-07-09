@@ -15,7 +15,7 @@ def login_view(request):
         password=request.POST.get('password')
         user=authenticate(request,username=username,password=password)
         if user is None:
-            context={"error":"Invalid username or password"}
+            context={"error":"اسم المستخدم او كلمة المرور غير صحيحة"}
             return render(request,"accounts/login.html",context)
         login(request,user)
         return redirect('/')
@@ -31,9 +31,12 @@ def signup_view(request):
             user=authenticate(username=form.cleaned_data['username'],password=form.cleaned_data['password1'])
             login(request,user)
             return redirect('accounts:profile')
-    else:
-        form=SignUpForm()
-        return render(request,'accounts/signup.html',{'form':form})
+        else:
+            form=SignUpForm()
+            return render(request,'accounts/signup.html',{'form':form,'error':form.errors})
+
+    form=SignUpForm()
+    return render(request,'accounts/signup.html',{'form':form})
     
 
 
